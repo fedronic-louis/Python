@@ -1,0 +1,128 @@
+
+"""
+
+#Exo 1
+print ("hello world \n", "Exercice 1.a \n")
+
+time =6.892
+distance= 19.7
+result =distance/ time  
+
+print (result, "speed \n")
+
+
+
+
+
+
+print ("we continue \n", "Exercice 1.b \n")
+name= input("what's your name ?\n")
+age = input("what old are you ?\n")
+
+print ("your name is ", name, " and you have ", age, " year(s) old \n" )
+
+
+#Exo 2 
+
+import math
+
+
+print ("we continue \n", "Exercice 2.a \n")
+number = float(input("what is the number"))
+result= math.sqrt (number)
+if number >= 1:
+
+  
+  print (result)
+
+else:
+
+  print ("the number is bellow 0, please change your number \n")
+  number=float(input("number again"))
+
+
+print ("we continue \n", "Exercice 2.b \n")
+word2 = "boggie"
+word1= "da"
+
+print (id(word1))
+print (id(word2))
+if len(word1)> len(word2):
+  print ("1st word: ", word1, " is bigger as 2nd word: ", word2)
+elif len(word1)== len(word2):
+  print ("1st word: ", word1, " is equal as 2nd word: ", word2)
+elif len(word1)< len(word2):
+  print ("1st word: ", word1, " is smaller as 2nd word: ", word2)
+
+else:
+  print("Issue")
+
+  """
+
+
+
+
+'''
+
+                            Online Python Compiler.
+                Code, Compile, Run and Debug python program online.
+Write your code in this editor and press "Run" button to execute it.
+
+'''
+
+
+pSeuil= 2.3
+vSeuil=7.41
+print ("hello world")
+volume = float(input ("What is the volume ?\n"))
+pressure = float(input ("What is the pressure ?\n"))
+
+
+while volume < vSeuil or pressure < pSeuil:    
+  if volume <= vSeuil:
+    #print("You need to increase the volume\n")
+    volume = float(input ("Ponder the volume need to be higher to the threshold volume\nCan you increase the volume ?\n "))
+    if volume > vSeuil:
+      print ("Good, now the volume is enough\n")
+
+    else:
+      volume = float(input ("Ponder the volume need to be higher to the threshold volume\nCan you increase MORE the volume ?\n "))
+
+  elif pressure<= pSeuil:
+    pressure = float(input ("Ponder the pressure need to be higher to the threshold pressure\nCan you increase the pressure ?\n "))
+    if pressure > pSeuil:
+      print ("Good, now the pressure is enough\n")
+
+    else:
+      pressure = float(input ("Ponder the pressure need to be higher to the threshold pressure\nCan you increase MORE the pressure ?\n "))
+
+if volume > vSeuil and pressure> pSeuil:
+  print("!!! Warning !!! System shot down")
+ 
+
+
+
+"""Complexe METHOD
+switch (case):
+
+case pressure> pSeuil:
+if volume<vSeuil:
+  volume = input ("Can you increase the volume ?\n Ponder the volume need to be higher to ", vSeuil)
+  if volume>vSeuil:
+    case pressure> pSeuil & volume> vSeuil
+    break
+elif volume==vSeuil:
+
+
+
+break
+case volume> vSeuil:
+
+
+
+break
+case pressure> pSeuil & volume> vSeuil:
+
+
+break
+"""
