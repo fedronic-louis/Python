@@ -1,1 +1,8 @@
 
+print ("welcome to the game")
+
+colonne = 5
+line= 5
+
+class drawBoard ():
+
