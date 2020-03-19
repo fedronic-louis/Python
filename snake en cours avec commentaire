@@ -1,0 +1,163 @@
+
+import random
+
+
+LIGNES= 15
+COLONNES= 15
+
+class Board(): 																												#Etape 1 dessiner la grille
+
+	board= list ([" "] * (LIGNES * COLONNES)) #grace à cela chaque case de ma grille pourra accueillir une valeur			#Etape 1 dessiner la grille
+	
+	def drawBoard(self, snake): #cette méthode permet de paramétrer ma grille												#Etape 1 dessiner la grille
+
+		
+		print(snake.snakePosition)																							#Etape 1Bis positionner le serpent sur la grille
+		
+		for i in range(0,COLONNES) :																							#Etape 1 dessiner la grille
+	
+			for j in range(0,LIGNES) :																					#Etape 1 dessiner la grille
+		
+				if snake.snakePosition == (i*LIGNES)+j:																	#Etape 1Bis positionner le serpent sur la grille & Etape 4 on affiche la queue du serpent
+					print (snake.headSnake+  ' | ',  end="") 																		
+				elif snake.tailPosition== (i*LIGNES)+j:
+					print (snake.tailSnake+  ' | ',  end="")
+
+				else:																										#Etape 1 dessiner la grille
+					print (self.board[(i*LIGNES)+j] + ' | ',  end="") 													#Etape 1 dessiner la grille
+			
+			print("\n",("----"*LIGNES))																					#Etape 1 dessiner la grille
+ 
+
+#Quand la position du serpent se retrouve dans une case food, cette case se vide
+		if self.board[snake.snakePosition] == 'O':
+			self.board[snake.snakePosition] = ' ' 	
+			print("Yummy")
+		
+		#S'il n'y a plus 'O' (donc nourriture) dans la fonction drawBoard (quadrillage)
+			
+		if 'O' not in self.board:
+			print( "Good job !")
+			return True
+		if snake.count==9: #Etape 6 en compte le nombre d'erreur de mouvement
+			print("Take care my friend, it's your last chance") #Etape 6 en compte le nombre d'erreur de mouvement
+		if snake.count==10: #"snake".count je le met de la sorte car count je le réfère dans la méthode snake #Etape 6 en compte le nombre d'erreur de mouvement
+			print ("Game over") #Etape 6 en compte le nombre d'erreur de mouvement
+			return True
+		return False
+		
+		
+		
+			
+
+	def food(self):																											#Etape 3 positionner la nourriture
+	
+		foodForm= 'O'																										#Etape 3 positionner la nourriture
+
+			#Positionner aléatoirement
+
+		foodCount= int(input("How many food in the drawBoard ? "))															#Etape 3 positionner la nourriture
+
+
+		r= random.sample(range(0,len(self.board)), k=foodCount)																#Etape 3 positionner la nourriture
+	
+		for foodNumber in r:																								#Etape 3 positionner la nourriture
+			self.board[foodNumber] = foodForm																						#Etape 3 positionner la nourriture
+
+	
+
+
+class Snake ():																												#Etape 1Bis #Etape 1Bis positionner le serpent sur la grille
+
+	snakePosition = 6																										#Etape 1Bis positionner le serpent sur la grille
+	headSnake = 'X'																											#Etape 1Bis positionner le serpent sur la grille
+	tailPosition = snakePosition-1																							#Etape 4 positionner la queue du serpent dans la grille
+	tailSnake = 'A'																											#Etape 4 positionner la queue du serpent dans la grille
+	direction = 's'
+	precedentDirection=tailPosition #l'idée est que la queue suit automatiquement la tete donc pour un mouvement donnée la position précédente est équivalente à la ou la queue est actuellement présente
+	count=0 #Etape 6 en compte le nombre d'erreur de mouvement
+
+	def snakeDirection(self): #permet de paramétré la direction que prendra mon serpent										#Etape 2 permettre au serpent de se mouvoir
+		
+		
+		
+		self.precedentDirection= self.direction
+		self.direction = input("Choose a direction: s to up, z to down, d to right and q to left mouvment")																			#Etape 2 permettre au serpent de se mouvoir
+		
+		if self.direction == 's':	#bas																			#Etape 2 
+			if self.precedentDirection != 'z': # Etape 5 on peut aller en bas que si la précédente commande n'était pas celle dirigeant vers le haut
+	
+				self.snakePosition = self.snakePosition+LIGNES											#Etape 2  permettre au serpent de se mouvoir
+				self.tailPosition = self.snakePosition-LIGNES											#Etape 4 permettre à la queue de suivre la tete du serpent 
+			else:												#Etape 5+6 en compte le nombre d'erreur de mouvement
+				self.count=self.count+1 
+				print ("Impossible movement, take care you can lose")
+				print ("Error number : ",self.count)
+
+				self.direction= self.precedentDirection #Etape 5 le serpent ne peut strictement pas aller dans le sens contraire car la fonction permet de répété la direction précédente 
+
+		
+		
+		elif self.direction == 'z':			#haut																						
+			
+			if self.precedentDirection != 's':	# Etape 5 on peut aller en haut que si la précédente commande n'était pas celle dirigeant vers le bas
+				self.snakePosition = self.snakePosition-LIGNES													#Etape 2 permettre au serpent de se mouvoir
+				self.tailPosition = self.snakePosition+LIGNES
+			else:										#Etape 5+6 en compte le nombre d'erreur de mouvement
+				self.count=self.count+1
+				print ("Impossible movement, take care you can lose")
+				print ("Error number : ",self.count)
+
+				self.direction= self.precedentDirection #Etape 5 le serpent ne peut strictement pas aller dans le sens contraire car la fonction permet de répété la direction précédente 
+
+		
+		
+		
+		elif self.direction == 'd':			#droite								
+
+			if self.precedentDirection != 'q': # Etape 5 on peut aller à droite que si la précédente commande n'était pas celle dirigeant vers la gauche
+				self.snakePosition = self.snakePosition+1															#Etape 2 (ajusté d'une indentation pour la lié à l'étape 5) permettre au serpent de se mouvoir
+				self.tailPosition = self.snakePosition-1
+			else:						#Etape 5+6 en compte le nombre d'erreur de mouvement
+				self.count=self.count+1
+				print ("Impossible movement, take care you can lose")
+				print ("Error number : ",self.count)
+
+				self.direction= self.precedentDirection #Etape 5 le serpent ne peut strictement pas aller dans le sens contraire car la fonction permet de répété la direction précédente 
+				
+		
+		
+		elif self.direction == 'q':			#gauche								
+
+			if self.precedentDirection != 'd': # # Etape 5 on peut aller à gauche que si la précédente commande n'était pas celle dirigeant vers la droite
+				#count=count+1
+				#print(count)
+				self.snakePosition = self.snakePosition-1															#Etape 2 permettre au serpent de se mouvoir
+				self.tailPosition = self.snakePosition+1
+			else:							#Etape 5+6 en compte le nombre d'erreur de mouvement
+				
+				self.direction= self.precedentDirection #Etape 5 le serpent ne peut strictement pas aller dans le sens contraire car la fonction permet de répété la direction précédente 
+				self.count=self.count+1
+				print ("Impossible movement, take care you can lose")
+				print ("Error number : ",self.count)
+
+			return self.count
+				
+			
+				
+board = Board()																												#Etape 1 dessiner la grille
+mySnake = Snake()																											#Etape 1Bis positionner le serpent sur la grille
+board.food()																												#Etape 3 (permet d'appeler et afficher la fonction pour) positionner la nourriture
+while 1:																													#Etape 1 & 1Bis
+
+	mySnake.snakeDirection()
+	#board.drawBoard(mySnake)																								#Etape 1 dessiner la grille
+		
+	if board.drawBoard(mySnake) == True:
+		break
+		
+		
+		
+		
+		
+			
